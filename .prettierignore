@@ -1,0 +1,12 @@
+package.json
+package-lock.json
+coverage/
+dist/
+node_modules/
+.env
+.gitignore
+.prettierrc
+.sample-env
+jest.config.js
+README.md
+tsconfig.json

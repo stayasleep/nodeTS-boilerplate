@@ -1,0 +1,43 @@
+{
+  "name": "nodets-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf dist/*",
+    "prestart": "npm run build",
+    "start": "node .",
+    "dev:start": "npm run start",
+    "dev": "nodemon --watch src -e ts --exec npm run dev:start",
+    "build": "tsc",
+    "jest": "jest",
+    "prettier": "prettier --write --",
+    "prettier-all": "prettier --write \".src/**/*.{js,jsx,json, ts, tsx}\"",
+    "precommit-msg": "echo 'Pre commit hook!' && exit 0",
+    "precommit": "npm run precommit-msg && pretty-quick --staged --verbose",
+    "postcommit": "git update-index -g",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.17.0",
+    "@types/jest": "^24.0.17",
+    "@types/node": "^12.7.1",
+    "husky": "^3.0.3",
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "prettier": "1.18.2",
+    "pretty-quick": "^1.11.1",
+    "rimraf": "^2.6.3",
+    "shelljs": "^0.8.3",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  },
+  "author": "",
+  "license": "ISC"
+}
