@@ -22,10 +22,12 @@ service: nodets-boilerplate
 provider:
   name: aws
   runtime: nodejs10.x
-
 # you can overwrite defaults here
+  timeout: 120 #optional, in seconds
+  region: us-west-2
 #  stage: dev
-#  region: us-east-1
+
+
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -58,7 +60,7 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: dist/index.js
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
