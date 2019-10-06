@@ -16,6 +16,7 @@
     "precommit-msg": "echo 'Pre commit hook!' && exit 0",
     "precommit": "npm run precommit-msg && pretty-quick --staged --verbose",
     "postcommit": "git update-index -g",
+    "predeploy": "npm run build",
     "deploy": "sls deploy -v",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
