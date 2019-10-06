@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
-import path from "path";
 
 /**
  * Initialize configuration
@@ -29,4 +28,12 @@ if (require.main === module) {
     app.listen(PORT, () => {
         console.log(`server running on http://localhost:${PORT}`);
     });
-}
+} else {
+    const serverless = require('serverless-http');
+    const handler = serverless(app);
+    module.exports.handler = async (event: any, context: any) => {
+        // you can do other things here
+        const result = await handler(event, context);
+        // and here
+        return result;
+    };}
