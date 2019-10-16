@@ -1,0 +1,30 @@
+# This is a sample build configuration for JavaScript.
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+
+image: node:11.13.0-alpine  # already has npm installed + small img size
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Build Production App
+          caches:
+            - node
+          script:
+            - echo > .env   # echo out any env vars app may need from the pipeline
+            - npm install
+            - npm run build
+      - step:
+          name: Run Unit Tests
+          script:
+            - npm test
+      - step:
+          name: Deploy Service to Production
+          script:
+            - npm install serverless -g
+            # configure an aws profile using a service account with granular access/least privileges necessary
+            - sls config credentials --provider aws --key ${AWS_ACCESS_KEY} --secret ${AWS_SECRET_ACCESS}
+            - sls deploy --verbose --force --stage master

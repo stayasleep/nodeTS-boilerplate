@@ -5,12 +5,6 @@
 # You can always add more config options for more control.
 # We've included some commented out config examples here.
 # Just uncomment any of them to get that config option.
-#
-# For full config options, check the docs:
-#    docs.serverless.com
-#
-# Happy Coding!
-
 service: nodets-boilerplate
 #app: your-app-name
 #tenant: your-tenant-name
@@ -18,16 +12,14 @@ service: nodets-boilerplate
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
-
 provider:
   name: aws
   runtime: nodejs10.x
-# you can overwrite defaults here
-  timeout: 120 #optional, in seconds
+  timeout: 30 #seconds
   region: us-west-2
-#  stage: dev
-
-
+  stage: master
+  endpointType: regional
+  memorySize: 512
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -50,22 +42,26 @@ provider:
 #    variable1: value1
 
 # you can add packaging information here
-#package:
+package:
 #  include:
 #    - include-me.js
 #    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
+  exclude:
+    - .idea
+    - .gitignore
+    - .prettierignore
+    - .prettierrc
+    - .sample-env
+    - bitbucket-pipelines.yml
+    - README.md
+    - src/**
+  excludeDevDependencies: true
 
 functions:
-  hello:
-    handler: dist/index.js
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - http:
+  app:
+    handler: dist/index.handler # reference the file and exported method
+    events:
+      - http: "ANY {proxy+}"
 #          path: users/create
 #          method: get
 #      - websocket: $connect
@@ -78,7 +74,7 @@ functions:
 #      - iot:
 #          sql: "SELECT * FROM 'some_topic'"
 #      - cloudwatchEvent:
-#          event:
+#          event:lam
 #            source:
 #              - "aws.ec2"
 #            detail-type:
